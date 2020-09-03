@@ -65,21 +65,32 @@ const appointments = [
 
 export default function Application(props) {
 
+  /*  /// Before combining them
+  
   const [day, setDay] = useState("Monday");
-  const [days, setDays] = useState([]);
+  const [days, setDays] = useState([]); 
+  
+  */
+
+ const [state, setState] = useState({
+    day: "Monday",
+    days: [],
+    appointments: {}
+  });
+
+  const setDay = day => setState({ ...state, day });
+  const setDays = days => setState(prev => ({ ...prev, days }));
 
 
   useEffect(() => {
 
     console.log("Fetching Data.....")
 
-    axios({
-      url:`/api/days`,
-      method:'GET'
-    })
-    .then(result => {
-      setDays(result.data)
-    })
+    axios.get(
+      `/api/days`
+    )
+    .then(result => setDays(result.data)
+    )
     .catch(err => console.log(err));
 
   }, [])
@@ -105,10 +116,10 @@ export default function Application(props) {
               setDay={day => console.log(day)}/> */}
 
               <DayList
-              id={days} 
-              days={days} 
-              day={day} 
-              setDay={setDay}/> 
+              days={state.days} 
+              day={state.day} 
+              setDay={setDay}
+              /> 
 
           </nav>
           <img
