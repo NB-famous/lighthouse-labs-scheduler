@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "components/Application.scss";
 import DayList from "./DayList";
+import { getAppointmentsForDay } from "helpers/selectors";
 
 ////////// Appointment Components //////////////////
 
@@ -9,7 +10,7 @@ import Appointment from "components/Appointment/Index";
 
 ///////////////////////////////////////////////////
 
-const appointments = [
+/* const appointments = [
   {
     id: 1,
     time: "12pm",
@@ -61,7 +62,7 @@ const appointments = [
 
 
 ];
-
+ */
 
 export default function Application(props) {
 
@@ -102,6 +103,10 @@ export default function Application(props) {
 
   }, [])
 
+  // This returns an array of Appointment objects -> Making this allows us to remove our 
+  // hard coded appointments array of objects 
+  const appointments = getAppointmentsForDay(state, state.day);
+  
   return (
     <main className="layout">
       <section className="sidebar">
