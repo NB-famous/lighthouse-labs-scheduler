@@ -2,7 +2,7 @@ import React from "react"
 
 const Show = (props) => {
 
-    console.log("this is show props:", props)
+    //console.log("this is show props:", props)
 
     const { student, interviewer, onEdit, onDelete } = props
 

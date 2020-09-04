@@ -37,9 +37,13 @@ export default function Application(props) {
       ...state.appointments,[id]: appointment
     };
 
-    setState({...state, appointments});
+    return axios.put(`/api/appointments/${id}`, { interview })
+    .then(response => {
 
-    console.log(id, interview);
+        console.log("this is Put response:::", response)
+        setState({...state, appointments});
+    });
+
   }
 
   const setDay = day => setState({ ...state,day});
@@ -57,8 +61,6 @@ export default function Application(props) {
     Promise.all([getApiDays, getApiAppointements, getApiInterviewers])
       .then(all => {
 
-        console.log("This is all", all)
-        console.log(all[0].data)
 
         //const [getApiDays, getApiAppointements] = all;
         setState(prev => ({

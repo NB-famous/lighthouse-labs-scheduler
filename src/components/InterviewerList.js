@@ -7,7 +7,7 @@ const InterviewerList = (props) => {
 
     const { interviewers } = props
 
-    console.log("This is the interviewers", interviewers)
+    //console.log("This is the interviewers", interviewers)
 
     return (
 
