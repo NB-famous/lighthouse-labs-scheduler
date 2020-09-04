@@ -52,5 +52,27 @@ const getInterview = (state, interview) => {
 }
 
 
-export {getAppointmentsForDay, getInterview }
+
+
+const  getInterviewersForDay = (state, day) => {
+
+  const filteredAppointments = state.days.find(result => result.name === day);//?
+
+  if(state.days.length === 0  || filteredAppointments === undefined){
+      return [];
+  }
+
+  /* const returnAppointment = filteredAppointments.appointments.map(id => state.appointments[id].interview).filter(val => val !== null)[0].interviewer//? */
+
+  const returnInterviewer = filteredAppointments.interviewers.map(id => state.interviewers[id])
+
+  return returnInterviewer;
+
+}
+
+
+//getInterviewersForDay(state, "Monday");//?
+
+
+export {getAppointmentsForDay, getInterview,  getInterviewersForDay }
 

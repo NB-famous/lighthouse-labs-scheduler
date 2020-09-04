@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "components/Application.scss";
 import DayList from "./DayList";
-import { getAppointmentsForDay, getInterview } from "helpers/selectors";
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 
 ////////// Appointment Components //////////////////
 
@@ -107,6 +107,7 @@ export default function Application(props) {
   // This returns an array of Appointment objects -> Making this allows us to remove our 
   // hard coded appointments array of objects 
   const appointments = getAppointmentsForDay(state, state.day);
+  const interviewers = getInterviewersForDay(state, state.day);
 
 
 
@@ -120,7 +121,9 @@ export default function Application(props) {
       key={appointment.id} 
       id={appointment.id}
       time={appointment.time}
-      interview={interview} 
+      interview={interview}
+      interviewer = {interviewers[0].id}
+      interviewers={interviewers} 
     />
     )
   });

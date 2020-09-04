@@ -30,7 +30,8 @@ const Appointment = (props) =>{
             )}
             {mode === CREATE && (
                 <Form 
-                    interviewers = {[]}
+                    interviewer={props.interviewer}
+                    interviewers = {props.interviewers}
                     onCancel = {() => back()}
                 />
             )}    
