@@ -8,7 +8,7 @@ const Form = (props) => {
     const [interviewer, setInterviewer] = useState(props.interviewer || null)
 
 
-
+    console.log("this is oncancel", props.onCancel)
 
     return (
         <main className="appointment__card appointment__card--create">
