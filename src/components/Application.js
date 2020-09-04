@@ -26,10 +26,9 @@ export default function Application(props) {
   });
 
   const bookInterview = (id, interview) => {
-
     /// new appointment object//
     const appointment = {
-      ...state.appointments[id],interview: {...interview}
+      ...state.appointments[id], interview: {...interview}
     };
 
     /// new appointments object//
@@ -37,14 +36,19 @@ export default function Application(props) {
       ...state.appointments,[id]: appointment
     };
 
-    return axios.put(`/api/appointments/${id}`, { interview })
-    .then(response => {
-
-        console.log("this is Put response:::", response)
+    /// Create an axios put request so when you refresh the page the booked interview remains
+    return axios.put(`/api/appointments/${id}`, appointment)
+    .then(()=> {
         setState({...state, appointments});
     });
-
   }
+
+  /// Create an axios put request to remove  the save page // mentor fix issue using closyre
+  const cancelInterview = (id) => () => {
+    return axios.delete(`/api/appointments/${id}`)
+  }
+
+
 
   const setDay = day => setState({ ...state,day});
   //const setDays = days => setState(prev => ({ ...prev, days }));
@@ -95,6 +99,7 @@ export default function Application(props) {
         interviewer = {interviewers[0].id}
         interviewers={interviewers} 
         bookInterview ={bookInterview}
+        cancelInterview ={cancelInterview(appointment.id)}
       />
       )
     });

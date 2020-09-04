@@ -4,6 +4,7 @@ import Show from "./Show"
 import Empty from "./Empty"
 import Form from "./Form"
 import Status from "./Status"
+import Confirm from "./Confirm"
 import useVisualMode from "hooks/useVisualMode";
 import "./styles.scss";
 
@@ -11,14 +12,18 @@ import "./styles.scss";
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
-const SAVING = "SAVING"
+const SAVING = "SAVING";
+const CONFIRM = "CONFIRM";
+const DELETING = "DELETING";
 
 
 const Appointment = (props) => {
 
     const {mode,transition,back} = useVisualMode(props.interview ? SHOW : EMPTY);
 
-    function save(name, interviewer) {
+
+    /////////// This is the save function ////////////////////
+    const save = (name, interviewer) => {
         const interview = {student: name, interviewer};
 
         //transition to the SHOW mode after calling props.bookInterview.
@@ -28,6 +33,16 @@ const Appointment = (props) => {
 
     }
 
+    ////////////////////////This is the Delete functions/////////////////
+
+    const confirmDelete = () => {
+        transition(CONFIRM)
+    }
+
+    const deleteInterview = (id) => {
+        transition(DELETING);
+        props.cancelInterview(id).then(() => transition(EMPTY));
+    }
 
     return (
 
@@ -38,7 +53,7 @@ const Appointment = (props) => {
                 <Show
                     student={props.interview.student}
                     interviewer={props.interview.interviewer}
-                
+                    onDelete = {confirmDelete}
                 />
             )}
             {mode === CREATE && (
@@ -51,6 +66,14 @@ const Appointment = (props) => {
             )} 
             {mode === SAVING && (
                 <Status  message="Wait!! It's Saving..."/>
+            )}
+            {mode === DELETING && <Status message={"Wait It's Deleting"} />}
+            {mode === CONFIRM && (
+                <Confirm
+                    message="Are you sure?"
+                    onCancel = {()=> back()}
+                    onConfirm={deleteInterview}
+                />
             )}   
 
 
