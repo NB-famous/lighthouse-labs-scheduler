@@ -1,85 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect
+} from "react";
 import axios from "axios";
 import "components/Application.scss";
 import DayList from "./DayList";
-import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
+import {
+  getAppointmentsForDay,
+  getInterview,
+  getInterviewersForDay
+} from "helpers/selectors";
 
 ////////// Appointment Components //////////////////
 
 import Appointment from "components/Appointment/Index";
 
-///////////////////////////////////////////////////
 
-/* const appointments = [
-  {
-    id: 1,
-    time: "12pm",
-  },
-  {
-    id: 2,
-    time: "1pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer: {
-        id: 1,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  {
-    id: 5,
-    time: "2pm",
-  },
-  {
-    id: 3,
-    time: "3pm",
-    interview: {
-      student: "Nikko Badoles",
-      interviewer: {
-        id: 2,
-        name: "Mildred Nazir",
-        avatar:"https://i.imgur.com/T2WwVfS.png",
-      }
-    }
-  },
-  {
-    id: 4,
-    time: "4pm",
-    interview: {
-      student: "Jonny Johnson",
-      interviewer: {
-        id: 3,
-        name: "Mildred Nazir",
-        avatar:"https://i.imgur.com/T2WwVfS.png",
-      }
-    }
-  },
-  {
-    id: "last",
-    time: "5pm",
-  },
-
-
-];
- */
 
 export default function Application(props) {
 
-  /*  /// Before combining them
-  
-  const [day, setDay] = useState("Monday");
-  const [days, setDays] = useState([]); 
-  
-  */
-
- const [state, setState] = useState({
+  const [state, setState] = useState({
     day: "Monday",
     days: [],
     appointments: {}
   });
 
-  const setDay = day => setState({ ...state, day });
+  const bookInterview = (id, interview) => {
+
+    /// new appointment object//
+    const appointment = {
+      ...state.appointments[id],interview: {...interview}
+    };
+
+    /// new appointments object//
+    const appointments = {
+      ...state.appointments,[id]: appointment
+    };
+
+    setState({...state, appointments});
+
+    console.log(id, interview);
+  }
+
+  const setDay = day => setState({ ...state,day});
   //const setDays = days => setState(prev => ({ ...prev, days }));
 
 
@@ -92,15 +55,20 @@ export default function Application(props) {
     const getApiInterviewers = axios.get(`api/interviewers`);
 
     Promise.all([getApiDays, getApiAppointements, getApiInterviewers])
-    .then(all => {
+      .then(all => {
 
-      console.log("This is all", all)
-      console.log(all[0].data)
+        console.log("This is all", all)
+        console.log(all[0].data)
 
-      //const [getApiDays, getApiAppointements] = all;
-      setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
-    })
-    .catch(err => console.log(err));
+        //const [getApiDays, getApiAppointements] = all;
+        setState(prev => ({
+          ...prev,
+          days: all[0].data,
+          appointments: all[1].data,
+          interviewers: all[2].data
+        }));
+      })
+      .catch(err => console.log(err));
 
   }, [])
 
@@ -117,17 +85,18 @@ export default function Application(props) {
     const interview = getInterview(state, appointment.interview);
 
     return (
-    <Appointment 
-      key={appointment.id} 
-      id={appointment.id}
-      time={appointment.time}
-      interview={interview}
-      interviewer = {interviewers[0].id}
-      interviewers={interviewers} 
-    />
-    )
-  });
-  
+      <Appointment 
+        key={appointment.id} 
+        id={appointment.id}
+        time={appointment.time}
+        interview={interview}
+        interviewer = {interviewers[0].id}
+        interviewers={interviewers} 
+        bookInterview ={bookInterview}
+      />
+      )
+    });
+
   return (
     <main className="layout">
       <section className="sidebar">
@@ -169,4 +138,4 @@ export default function Application(props) {
       </section>
     </main>
   );
-}
+};

@@ -8,7 +8,13 @@ const Form = (props) => {
     const [interviewer, setInterviewer] = useState(props.interviewer || null)
 
 
-    console.log("this is oncancel", props.onCancel)
+    //console.log("this is oncancel", props.onCancel)
+    //console.log("this is onSave", props.onSave)
+
+    /// this save function only calls name and interviewer to the onSave -> its not similar to the one inside application
+    function save() {
+        props.onSave(name, interviewer)
+    }
 
     return (
         <main className="appointment__card appointment__card--create">
@@ -39,7 +45,7 @@ const Form = (props) => {
             <section className="appointment__card-right">
                 <section className="appointment__actions">
                 <Button danger onClick={props.onCancel}>Cancel</Button>
-                <Button confirm onClick={props.onSave}>Save</Button>
+                <Button confirm onClick={save}>Save</Button>
                 </section>
             </section>
         </main>
