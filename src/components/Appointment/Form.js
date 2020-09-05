@@ -21,7 +21,7 @@ const Form = (props) => {
         <main className="appointment__card appointment__card--create">
             <section className="appointment__card-left">
                 <form 
-                    onSubmit={event=> event.preventDefault()}
+                    onSubmit={event => event.preventDefault()}
                     autoComplete="off"
                 >
                     <input

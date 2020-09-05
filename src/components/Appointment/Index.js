@@ -15,6 +15,7 @@ const CREATE = "CREATE";
 const SAVING = "SAVING";
 const CONFIRM = "CONFIRM";
 const DELETING = "DELETING";
+const EDIT = "EDIT";
 
 
 const Appointment = (props) => {
@@ -39,6 +40,10 @@ const Appointment = (props) => {
         transition(CONFIRM)
     }
 
+    const editAppointment = () => {
+        transition(EDIT)
+    }
+
     const deleteInterview = (id) => {
         transition(DELETING);
         props.cancelInterview(id).then(() => transition(EMPTY));
@@ -54,6 +59,7 @@ const Appointment = (props) => {
                     student={props.interview.student}
                     interviewer={props.interview.interviewer}
                     onDelete = {confirmDelete}
+                    onEdit = {editAppointment}
                 />
             )}
             {mode === CREATE && (
@@ -65,7 +71,7 @@ const Appointment = (props) => {
                 />
             )} 
             {mode === SAVING && (
-                <Status  message="Wait!! It's Saving..."/>
+                <Status  message={"Wait!! It's Saving..."}/>
             )}
             {mode === DELETING && <Status message={"Wait It's Deleting"} />}
             {mode === CONFIRM && (
@@ -74,7 +80,15 @@ const Appointment = (props) => {
                     onCancel = {()=> back()}
                     onConfirm={deleteInterview}
                 />
-            )}   
+            )}
+            {mode === EDIT && (
+                <Form
+                    name={props.interview.student}
+                    interviewer={props.interview.interviewer.id}
+                    interviewers={props.interviewers}
+                    onCancel={back}
+                    onSave={save}
+                />)}   
 
 
         </article>
