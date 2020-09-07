@@ -6,15 +6,27 @@ const Form = (props) => {
 
     const [name, setName] = useState(props.name || "")
     const [interviewer, setInterviewer] = useState(props.interviewer || null)
+    //When the input is invalid, we need to change the error state to "Student name cannot be blank"
+    const [error, setError] = useState("");
 
 
     //console.log("this is oncancel", props.onCancel)
     //console.log("this is onSave", props.onSave)
 
     /// this save function only calls name and interviewer to the onSave -> its not similar to the one inside application
-    function save() {
+    // This has been replace by validate function
+    /* function save() {
         props.onSave(name, interviewer)
-    }
+    } */
+
+    const validate = () => {
+        if (name === "") {
+          setError("Student name cannot be blank");
+          return;
+        }
+      
+        props.onSave(name, interviewer);
+      }
 
 
     return (
@@ -34,8 +46,11 @@ const Form = (props) => {
                         /*
                         This must be a controlled component
                         */
+                        data-testid="student-name-input"
                     />
                 </form>
+                
+                <section className="appointment__validation">{error}</section>
 
                 <InterviewerList
                     interviewers={props.interviewers}
@@ -46,7 +61,7 @@ const Form = (props) => {
             <section className="appointment__card-right">
                 <section className="appointment__actions">
                 <Button danger onClick={props.onCancel}>Cancel</Button>
-                <Button confirm onClick={save}>Save</Button>
+                <Button confirm onClick={validate}>Save</Button>
                 </section>
             </section>
         </main>
