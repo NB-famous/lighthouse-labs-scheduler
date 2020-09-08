@@ -80,7 +80,7 @@ const Appointment = (props) => {
             {mode === SAVING && (
                 <Status  message={"Wait!! It's Saving..."}/>
             )}
-            {mode === DELETING && <Status message={"Wait It's Deleting"} />}
+            {mode === DELETING && <Status message={"Wait!! It's Deleting..."} />}
             {mode === CONFIRM && (
                 <Confirm
                     message="Are you sure?"
@@ -108,7 +108,6 @@ const Appointment = (props) => {
                     onClose={back}
                 />
             )}   
-
 
         </article>
     )
