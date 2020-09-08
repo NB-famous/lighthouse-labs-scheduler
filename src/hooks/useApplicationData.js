@@ -89,8 +89,8 @@ const useApplicationData = (props) => {
         console.log("Fetching Data.....")
     
         const getApiDays = axios.get(`/api/days`);
-        const getApiAppointements = axios.get(`api/appointments`);
-        const getApiInterviewers = axios.get(`api/interviewers`);
+        const getApiAppointements = axios.get(`/api/appointments`);
+        const getApiInterviewers = axios.get(`/api/interviewers`);
     
         Promise.all([getApiDays, getApiAppointements, getApiInterviewers])
           .then(all => {
