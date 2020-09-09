@@ -1,12 +1,11 @@
 import { useEffect, useReducer } from "react";
 import axios from "axios";
 
-//////////////// Reducer function goes here ///////////////////////////
-
 const SET_DAY = "SET_DAY";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_INTERVIEW = "SET_INTERVIEW";
 
+///// reducer function to manage multiple states ////
 const reducer = (state, action) => {
   switch (action.type) {
     case SET_DAY:
@@ -46,10 +45,6 @@ const reducer = (state, action) => {
   }
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
-
-
 const useApplicationData = (props) => {
 
     const [state, dispatch] = useReducer(reducer, {
@@ -64,7 +59,7 @@ const useApplicationData = (props) => {
         const appointment = {
           ...state.appointments[id], interview: {...interview}
         };
-        /// Create an axios put request so when you refresh the page the booked interview remains
+        /// Create an axios put request so when you refresh the page the booked interview remains ///
         return axios.put(`/api/appointments/${id}`, appointment)
         .then(()=> {
           dispatch({ type: SET_INTERVIEW,
@@ -73,7 +68,7 @@ const useApplicationData = (props) => {
           });
         });
       }
-      /// Create an axios put request to remove  the save page // mentor fix issue using closyre
+      /// Create an axios put request to remove  the save page // mentor fix issue using closure /////
       const cancelInterview = (id) => () => {
         return axios.delete(`/api/appointments/${id}`)
         .then(response => {
@@ -82,16 +77,12 @@ const useApplicationData = (props) => {
           interview: null});
         });
       }
-
       const setDay = day => dispatch({ type: SET_DAY, day: day});
       useEffect(() => {
-    
         console.log("Fetching Data.....")
-    
         const getApiDays = axios.get(`/api/days`);
         const getApiAppointements = axios.get(`/api/appointments`);
         const getApiInterviewers = axios.get(`/api/interviewers`);
-    
         Promise.all([getApiDays, getApiAppointements, getApiInterviewers])
           .then(all => {
             dispatch({ type: SET_APPLICATION_DATA,
@@ -103,9 +94,7 @@ const useApplicationData = (props) => {
           .catch(err => console.log(err));
     
       }, [])
-    
     return { state, setDay, bookInterview, cancelInterview}
-    
 }
 
 export default useApplicationData;

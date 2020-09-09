@@ -39,8 +39,6 @@ storiesOf("Button", module)
       Disabled
     </Button>
   ));
-
-
 storiesOf("DayListItem", module) //Initiates Storybook and registers our DayListItem component
   .addParameters({
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
@@ -51,10 +49,7 @@ storiesOf("DayListItem", module) //Initiates Storybook and registers our DayList
   .add("Clickable", () => (
     <DayListItem name="Tuesday" setDay={action("setDay")} spots={5} /> // action() allows us to create a callback that appears in the actions panel when clicked
   ));
-
-
   // DayList Story part /////////////
-
   const days = [
     {
       id: 1,
@@ -83,11 +78,7 @@ storiesOf("DayListItem", module) //Initiates Storybook and registers our DayList
     .add("Tuesday", () => (
       <DayList days={days} day={"Tuesday"} setDay={action("setDay")} />
     ));
-
-
   //// Story about Interview List Item ////////////////////
-
-
   const interviewer = {
     id: 1,
     name: "Sylvia Palmer",
@@ -122,21 +113,7 @@ storiesOf("DayListItem", module) //Initiates Storybook and registers our DayList
         setInterviewer={event => action("setInterviewer")(interviewer.id)}
       />
     ));
-
-    /* Previous clickable before the change
-
-    .add("Clickable", () => (
-      <InterviewerListItem
-        id={interviewer.id}
-        name={interviewer.name}
-        avatar={interviewer.avatar}
-        setInterviewer={action("setInterviewer")}
-      />
-    )); */
-
-
 // Story for InterviewList /////////
-
 const interviewers = [
   { id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },
   { id: 2, name: "Tori Malcolm", avatar: "https://i.imgur.com/Nmx0Qxo.png" },
@@ -144,7 +121,6 @@ const interviewers = [
   { id: 4, name: "Cohana Roy", avatar: "https://i.imgur.com/FK8V841.jpg" },
   { id: 5, name: "Sven Jones", avatar: "https://i.imgur.com/twYrpay.jpg" }
 ];
-
 storiesOf("InterviewerList", module)
   .addParameters({
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
@@ -162,12 +138,7 @@ storiesOf("InterviewerList", module)
       setInterviewer={action("setInterviewer")}
     />
   ));
-
-
-
   ////// Story for Appointment///////////////////////
-
-
 storiesOf("Appointment", module)
   .addParameters({
     backgrounds: [{ name: "white", value: "#fff", default: true }]

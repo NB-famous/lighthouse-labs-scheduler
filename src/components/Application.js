@@ -6,27 +6,19 @@ import {
   getInterview,
   getInterviewersForDay
 } from "helpers/selectors";
-///// import hooks useApplicationData 
+///// import hooks useApplicationData /////////////// 
 import  useApplicationData  from "../hooks/useApplicationData";
-////////// Appointment Components //////////////////
+////////// Appointment Component Main //////////////////
 import Appointment from "components/Appointment/Index";
 
 export default function Application(props) {
 
   const {state, setDay, bookInterview, cancelInterview} = useApplicationData();
-
-  // This returns an array of Appointment objects -> Making this allows us to remove our 
-  // hard coded appointments array of objects 
   const appointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
 
-
-
-  // This was moved from within the return of Application function and just return the variable instead
   const schedule = appointments.map(appointment => {
-
     const interview = getInterview(state, appointment.interview);
-
     return (
       <Appointment 
         key={appointment.id} 
@@ -67,7 +59,6 @@ export default function Application(props) {
           </>
         }
       </section>
-
       <section className="schedule" >
         {schedule}
         <Appointment

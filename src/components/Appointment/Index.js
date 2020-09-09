@@ -22,42 +22,31 @@ const ERROR_DELETE  = "ERROR_DELETE";
 
 
 const Appointment = (props) => {
-
     const {mode,transition,back} = useVisualMode(props.interview ? SHOW : EMPTY);
-
-
     /////////// This is the save function ////////////////////
     const save = (name, interviewer) => {
         const interview = {student: name, interviewer};
 
         //transition to the SHOW mode after calling props.bookInterview.
-
         transition(SAVING);
         props.bookInterview(props.id, interview)
         .then(()=> transition(SHOW))
         .catch(err => transition(ERROR_SAVE, true));
-
     };
-
     ////////////////////////This is the Delete functions/////////////////
-
     const confirmDelete = () => {
         transition(CONFIRM)
     };
-
     const editAppointment = () => {
         transition(EDIT)
     };
-
     const deleteInterview = (id) => {
         transition(DELETING, true);
         props.cancelInterview(id)
         .then(() => transition(EMPTY))
         .catch(err => transition(ERROR_DELETE, true));
     };
-
     return (
-
         <article className="appointment" data-testid="appointment">
             <Header time={props.time}/>
             {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
@@ -108,9 +97,8 @@ const Appointment = (props) => {
                     onClose={back}
                 />
             )}   
-
         </article>
     )
 }
 
-        export default Appointment
+export default Appointment

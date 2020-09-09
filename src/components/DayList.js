@@ -1,10 +1,7 @@
 import React from "react";
 import DayListItem from "./DayListItem";
 
-
 const DayList = (props) => {
-    //console.log("this is props", props)
-
     return (
         <ul>
          {props.days.map(day => (
@@ -16,7 +13,6 @@ const DayList = (props) => {
                 selected={day.name === props.day}
                 setDay={props.setDay}  />
          ))}
-
         </ul>
     )
 }
