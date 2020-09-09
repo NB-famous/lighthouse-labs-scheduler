@@ -43,7 +43,7 @@ npm run storybook
 ## Error Message
 !["Error msg"](https://github.com/NB-famous/lighthouse-labs-scheduler/blob/master/docs/ErrorHandling.png?raw=true)
 ## Day Navigator Bar
-!["Navigation"](https://github.com/NB-famous/lighthouse-labs-scheduler/blob/master/docs/ErrorHandling.png?raw=true)
+!["Navigation"](https://github.com/NB-famous/lighthouse-labs-scheduler/blob/master/docs/Day-navigation.png?raw=true)
 
 # Screenshots of Test applied 
 
@@ -53,6 +53,16 @@ npm run storybook
 !["StoryBook"](https://github.com/NB-famous/lighthouse-labs-scheduler/blob/master/docs/StoryBook.png?raw=true)
 ## End To End Test using Cypress 
 !["Cypress"](https://github.com/NB-famous/lighthouse-labs-scheduler/blob/master/docs/Cypress.png?raw=true)
+
+
+# Dependencies
+-> "axios"
+-> "classnames"
+-> "normalize.css"
+-> "react"
+-> "react-dom"
+-> "react-scripts"
+
 
 
 
