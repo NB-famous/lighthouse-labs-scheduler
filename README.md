@@ -1,4 +1,5 @@
 # Interview Scheduler
+## A scheduler App that allows a user to book, edit and delete interview appointments
 
 ## Setup
 
